@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" href="calculator.jpg" type="image/jpg" sizes="16x16">
     <style> 
         .calculator{
             border: 1px solid #ccc;
@@ -36,26 +37,25 @@
         <button id="all-clear">C</button>
         <button id="delete">x</button>
         <button class="operation" id="percentage">%</button>
-        <button class="operation" id="divide">/</button><br>
-
-
-        <button id="7">7</button>
-        <button id="8">8</button>
-        <button id="9">9</button>
+        <button class="operation" id="divide">/</button>
+        <br>
+        <button class="operator" data-id="7">7</button>
+        <button class="operator" data-id="8">8</button>
+        <button class="operator" data-id="9">9</button>
         <button class="operation" id="multiply">*</button>
         <br>
-        <button id="6">6</button>
-        <button id="5">5</button>
-        <button id="4">4</button>
-        <button class="operation" id="substract">-</button><br>
-
-        <button id="1">1</button>
-        <button id="2">2</button>
-        <button id="3">3</button>
-        <button class="operation" id="add">+</button><br>
-
+        <button class="operator" data-id="6">6</button>
+        <button class="operator" data-id="5">5</button>
+        <button class="operator" data-id="4">4</button>
+        <button class="operation" id="substract">-</button>
+        <br>
+        <button class="operator" data-id="1">1</button>
+        <button class="operator" data-id="2">2</button>
+        <button class="operator" data-id="3">3</button>
+        <button class="operation" id="add">+</button>
+        <br>
         <button class="operation" id="power">^</button>
-        <button id="0">0</button>
+        <button class="operator" data-id="0">0</button>
         <button id="point">.</button>
         <button id="answer">=</button>
     </div>
@@ -72,38 +72,14 @@
             $("#txt").html("&nbsp;");
             $(".operation").prop('disabled', false);
         });
-        $("#9").click(function () {
-            $("#txt").append("9");
-        });
-        $("#8").click(function () {
-            $("#txt").append("8");
-        }); 
-        $("#7").click(function () {
-            $("#txt").append("7");
-        });
+        $(".operator").click(function () {
+            $("#txt").append($(this).attr("data-id"));
+        });              
         $("#multiply").click(function () {
             $("#txt").append("*");
-        });
-        $("#6").click(function () {
-            $("#txt").append("6");
-        });
-        $("#5").click(function () {
-            $("#txt").append("5");
-        });
-        $("#4").click(function () {
-            $("#txt").append("4");
-        });
+        });        
         $("#substract").click(function () {
             $("#txt").append("-");
-        });
-        $("#3").click(function () {
-            $("#txt").append("3");
-        });
-        $("#2").click(function () {
-            $("#txt").append("2");
-        });
-        $("#1").click(function () {
-            $("#txt").append("1");
         });
         $("#add").click(function () {
             $("#txt").append("+");
@@ -111,12 +87,15 @@
         $("#power").click(function () {
             $("#txt").append("^");
         });
-        $("#0").click(function () {
-            $("#txt").append("0");
-        });
         $("#point").click(function () {
             $("#txt").append(".");
         });
+        $("#percentage").click(function () {
+            $("#txt").append("% ");
+        });
+        $("#divide").click(function () {
+            $("#txt").append("/");
+        });        
         $("#delete").click(function () {
             var text = $("#txt").text();
             var stext = text.slice(0, -1);
@@ -128,19 +107,9 @@
             }
             ($("#txt").text()) ? "" : $("#txt").html("&nbsp;");
         });
-        $("#percentage").click(function () {
-            $("#txt").append("% ");
-        });
-        $("#divide").click(function () {
-            $("#txt").append("/");
-        });
         $("#answer").click(function () {
             var text = $("#txt").text(); 
             var ans = "";
-            //debugger;
-            //var number1 = Number(text);
-            //var rnumber2 = String(Number(text.split("").reverse().join("")));
-            //var number2 = Number(rnumber2.split("").reverse().join(""))
 
             if(text.includes("+")){
                 ans = (Number(text.split("+")[0]) + Number(text.split("+")[1])).toFixed(2);
