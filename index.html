@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+        .calculator{
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            width: 272px;
+            -webkit-box-shadow: 2px 3px 8px -1px rgba(94,94,94,1);
+            -moz-box-shadow: 2px 3px 8px -1px rgba(94,94,94,1);
+            box-shadow: 2px 3px 8px -1px rgba(94,94,94,1);
+        } 
+        button {
+            padding: 12px 20px;
+            width: 55px;
+            margin: 5px;
+            text-align: center;
+        }
+        div#txt{
+            padding: 24px 22px;
+            width: 215px;
+            margin: 5px;
+            text-align: right;  
+            border: 1px solid #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="txt">&nbsp;</div>
+
+        <button id="all-clear">C</button>
+        <button id="delete">x</button>
+        <button class="operation" id="percentage">%</button>
+        <button class="operation" id="divide">/</button><br>
+
+
+        <button id="7">7</button>
+        <button id="8">8</button>
+        <button id="9">9</button>
+        <button class="operation" id="multiply">*</button>
+        <br>
+        <button id="6">6</button>
+        <button id="5">5</button>
+        <button id="4">4</button>
+        <button class="operation" id="substract">-</button><br>
+
+        <button id="1">1</button>
+        <button id="2">2</button>
+        <button id="3">3</button>
+        <button class="operation" id="add">+</button><br>
+
+        <button class="operation" id="power">^</button>
+        <button id="0">0</button>
+        <button id="point">.</button>
+        <button id="answer">=</button>
+    </div>
+    
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".operation").click(function () {
+            $(".operation").prop('disabled', true);
+        });
+        $("#all-clear").click(function () {
+            $("#txt").html("&nbsp;");
+            $(".operation").prop('disabled', false);
+        });
+        $("#9").click(function () {
+            $("#txt").append("9");
+        });
+        $("#8").click(function () {
+            $("#txt").append("8");
+        }); 
+        $("#7").click(function () {
+            $("#txt").append("7");
+        });
+        $("#multiply").click(function () {
+            $("#txt").append("*");
+        });
+        $("#6").click(function () {
+            $("#txt").append("6");
+        });
+        $("#5").click(function () {
+            $("#txt").append("5");
+        });
+        $("#4").click(function () {
+            $("#txt").append("4");
+        });
+        $("#substract").click(function () {
+            $("#txt").append("-");
+        });
+        $("#3").click(function () {
+            $("#txt").append("3");
+        });
+        $("#2").click(function () {
+            $("#txt").append("2");
+        });
+        $("#1").click(function () {
+            $("#txt").append("1");
+        });
+        $("#add").click(function () {
+            $("#txt").append("+");
+        });
+        $("#power").click(function () {
+            $("#txt").append("^");
+        });
+        $("#0").click(function () {
+            $("#txt").append("0");
+        });
+        $("#point").click(function () {
+            $("#txt").append(".");
+        });
+        $("#delete").click(function () {
+            var text = $("#txt").text();
+            var stext = text.slice(0, -1);
+            $("#txt").html(stext);
+            var operations = ["+", "-", "*", "/", "%", "^"];
+            var operationsIncludes = operations.some(fruit => ($("#txt").text()).includes(fruit));
+            if (!operationsIncludes) {
+                $(".operation").prop('disabled', false);
+            }
+            ($("#txt").text()) ? "" : $("#txt").html("&nbsp;");
+        });
+        $("#percentage").click(function () {
+            $("#txt").append("% ");
+        });
+        $("#divide").click(function () {
+            $("#txt").append("/");
+        });
+        $("#answer").click(function () {
+            var text = $("#txt").text(); 
+            var ans = "";
+            //debugger;
+            //var number1 = Number(text);
+            //var rnumber2 = String(Number(text.split("").reverse().join("")));
+            //var number2 = Number(rnumber2.split("").reverse().join(""))
+
+            if(text.includes("+")){
+                ans = (Number(text.split("+")[0]) + Number(text.split("+")[1])).toFixed(2);
+                ((Number(text.split("+")[0])) && (Number(text.split("+")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else if (text.includes("-")) {
+                ans = Number(text.split("-")[0]) - Number(text.split("-")[1]);
+                ((Number(text.split("-")[0])) && (Number(text.split("-")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else if (text.includes("*")) {
+                ans = Number(text.split("*")[0]) * Number(text.split("*")[1]);
+                ((Number(text.split("*")[0])) && (Number(text.split("*")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else if (text.includes("/")) {
+                ans = Number(text.split("/")[0]) / Number(text.split("/")[1]);
+                ((Number(text.split("/")[0])) && (Number(text.split("/")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else if (text.includes("%")) {
+                ans = (Number(text.split("%")[0]) / Number(text.split("%")[1]))*100;
+                ((Number(text.split("%")[0])) && (Number(text.split("%")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else if (text.includes("^")) {
+                ans = Math.pow(Number(text.split("^")[0]), Number(text.split("^")[1]));
+                ((Number(text.split("^")[0])) && (Number(text.split("^")[1]))) ? $("#txt").html(ans) : $("#txt").html("ERROR");
+            }
+            else{
+                ans = "ERROR";
+            }
+            $(".operation").prop('disabled', false);
+        });
+    });
+</script>
